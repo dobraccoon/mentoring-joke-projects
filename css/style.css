@@ -1,0 +1,35 @@
+h1 {
+    color: rgb(93, 93, 93);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(82, 145, 197);
+}
+
+a:hover {
+    color: rgb(175, 212, 208);
+}
+
+a:focus {
+    color: rgb(205, 101, 101);
+}
+
+li {
+    list-style: none;
+    color: rgb(82, 145, 197);
+}
+
+.dobraccoon-logo {
+    display: inline-block;
+    width: 134px;
+    border-radius: 50%;
+    box-shadow: 5px 5px 5px rgb(132, 179, 223);
+    background-color: rgb(197, 240, 236);
+}
+
+.dobraccoon-logo img {
+    width: 100px;
+    bottom: auto;
+    padding-left: 10px;
+}
