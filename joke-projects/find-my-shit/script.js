@@ -44,11 +44,11 @@ function closeTheBoxByEscapePress(event) {
 
 function showShitInTheOpenBox() {
   modal.getElementsByTagName("p")[0].innerText =
-    "💩\nYes, it's here 🎉 \n But I'll hide it 😏 \n Now try to find my shit again 😈";
+    "💩\nДа, она тут 🎉 \n А, у тебя хороший нюх 😏 \n Я ее перепрятал, попробуй еще раз найти 😈";
 }
 
 function showFailMessageInTheOpenBox() {
-  modal.getElementsByTagName("p")[0].textContent = "Nope, not here 🤷‍♂️";
+  modal.getElementsByTagName("p")[0].textContent = "Нет, тут все чисто 🤷‍♂️";
 }
 
 boxesBottons.forEach((e) => {
