@@ -1,14 +1,31 @@
 'use strict';
 
 let score;
-let highScore;
+let highScore = 0;
 let gameOver;
 let secretNumber;
+
 startNewGame();
 
 document
   .querySelector('.check')
   .addEventListener('click', tryGuessTheSecretNumber);
+
+const saveToLocalStorage = () => {
+  if (highScore > 0) {
+    localStorage.setItem('highScore', highScore);
+  }
+}
+
+const getFromLocalStorage = () => {
+  const reference = localStorage.getItem('highScore');
+
+  if (reference) {
+    highScore = parseInt(reference);
+
+    document.querySelector('.highscore').innerHTML = reference
+  }
+}
 
 function tryGuessTheSecretNumber() {
   if (gameOver) {
@@ -19,12 +36,15 @@ function tryGuessTheSecretNumber() {
     if (!guessNumber) {
       displayMessage('⛔️ Не размер!');
     } else if (guessNumber === secretNumber) {
+      highScore += 1; 
       displayMessage('🎉 Угадал, кажется мы знакомы слишком близко🥰');
       document.querySelector('.number').textContent = guessNumber + 'см';
       document.querySelector('body').style.backgroundColor = '#60b347';
+      document.querySelector('.highscore').innerHTML = highScore;
       commitHighScore();
       // decreaseAndUpdateScore;
       setGameOverAndUpdateTheButton();
+      saveToLocalStorage(); // здесь сохраняется в localStorage 
     } else if (guessNumber !== secretNumber) {
       if (score > 1) {
         displayMessage(
@@ -51,7 +71,6 @@ function displayMessage(mesage) {
 
 function commitHighScore() {
   if (score > highScore) {
-    highScore = score;
     document.querySelector('.highscore').textContent = highScore;
   }
 }
@@ -63,9 +82,7 @@ function decreaseAndUpdateScore() {
 
 function startNewGame() {
   score = 3;
-  highScore = 0;
   document.querySelector('.score').textContent = score;
-  document.querySelector('.highscore').textContent = highScore;
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').textContent = '?см';
   document.querySelector('.guess').value = '';
@@ -85,3 +102,5 @@ function generateSecretNumber() {
   secretNumber = Math.trunc(Math.random() * 40 + 1);
   console.log('secretNumber is: ' + secretNumber);
 }
+
+getFromLocalStorage();
