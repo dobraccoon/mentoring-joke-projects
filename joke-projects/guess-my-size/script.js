@@ -1,7 +1,7 @@
 'use strict';
 
 let score;
-let highScore = 0;
+let highScore;
 let gameOver;
 let secretNumber;
 
@@ -24,8 +24,12 @@ const getFromLocalStorage = () => {
     highScore = parseInt(reference);
 
     document.querySelector('.highscore').innerHTML = reference
+  } else {
+    document.querySelector('.highscore').innerHTML = 0;
   }
 }
+
+getFromLocalStorage();
 
 function tryGuessTheSecretNumber() {
   if (gameOver) {
@@ -44,7 +48,7 @@ function tryGuessTheSecretNumber() {
       commitHighScore();
       // decreaseAndUpdateScore;
       setGameOverAndUpdateTheButton();
-      saveToLocalStorage(); // здесь сохраняется в localStorage 
+      saveToLocalStorage();
     } else if (guessNumber !== secretNumber) {
       if (score > 1) {
         displayMessage(
@@ -102,5 +106,3 @@ function generateSecretNumber() {
   secretNumber = Math.trunc(Math.random() * 40 + 1);
   console.log('secretNumber is: ' + secretNumber);
 }
-
-getFromLocalStorage();
