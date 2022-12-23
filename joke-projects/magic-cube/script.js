@@ -3,37 +3,25 @@
 let playersArray = document.querySelectorAll('.player');
 let activePlayerNumber = getActivePlayerNumber();
 let dice = document.querySelector('.dice');
-let currentDicksSizeArray = document.querySelectorAll('.current-score');
-let generalDicksSizeArray = document.querySelectorAll('.score');
+let currentDicksSizeArray = document.querySelectorAll('.current-size');
+let generalDicksSizeArray = document.querySelectorAll('.general-size');
 let diceRandomNumber;
 let currentActiveSizeId;
 let generalActiveSizeId;
-//----------------------
-const playersObjectsArray = [{id: 1, name: "player1", fullDickSize: 0, incrementingDickSize: 0}, {
-    id: 2, name: "player2", fullDickSize: 0, incrementingDickSize: 0
-}];
 
 
 function startNewGame() {
     hideDice();
-    const scores = document.querySelectorAll('.score');
-    scores.forEach(e => {
+    const generalSizes = document.querySelectorAll('.general-size');
+    generalSizes.forEach(e => {
         e.textContent = "0";
     });
-    const currentScores = document.querySelectorAll('.current-score');
-    currentScores.forEach(e => {
+    const currentSizes = document.querySelectorAll('.current-size');
+    currentSizes.forEach(e => {
         e.textContent = "0";
     });
     setAnotherPlayerAsActive();
-    setActiveScoreIdByActivePlayer();
-    resetPlayersSizes();
-}
-
-function resetPlayersSizes() {
-    playersObjectsArray.forEach(e => {
-        e.fullDickSize = 0;
-        e.incrementingDickSize = 0;
-    })
+    setActiveSizeIdsByActivePlayer();
 }
 
 function hideDice() {
@@ -56,7 +44,7 @@ function setAnotherPlayerAsActive() {
         activePlayerNumber = 0;
     }
 
-    setActiveScoreIdByActivePlayer();
+    setActiveSizeIdsByActivePlayer();
 }
 
 function rollTheDice() {
@@ -76,8 +64,9 @@ function showDiceByNumber(diceNumber) {
     if (dice.classList.contains('hidden')) dice.classList.remove('hidden');
 }
 
-function setActiveScoreIdByActivePlayer() {
-    currentActiveSizeId = "current--" + activePlayerNumber;
+function setActiveSizeIdsByActivePlayer() {
+    currentActiveSizeId = "current-size--" + activePlayerNumber;
+    generalActiveSizeId = "general-size--" + activePlayerNumber;
 }
 
 function incrementActivePlayerCurrentDickSizeByNumber(incrementNumber) {
@@ -91,9 +80,16 @@ function incrementActivePlayerCurrentDickSizeByNumber(incrementNumber) {
 function holdActivePlayerDickSize() {
     generalDicksSizeArray.forEach(e => {
         if (e.id === generalActiveSizeId) {
-            e.textContent = Number(e.textContent) + incrementNumber;//?
+            currentDicksSizeArray.forEach(j => {
+                if (j.id === currentActiveSizeId) {
+                    e.textContent = Number(e.textContent) + Number(j.textContent);
+                    j.textContent = "0";
+                }
+            })
+
         }
     })
+    setAnotherPlayerAsActive();
 }
 
 function cutActivePlayerDick() {

@@ -58,13 +58,13 @@ function commitHighScore() {
 
 function decreaseAndUpdateScore() {
   score--;
-  document.querySelector('.score').textContent = score;
+  document.querySelector('.general-size').textContent = score;
 }
 
 function startNewGame() {
   score = 3;
   highScore = 0;
-  document.querySelector('.score').textContent = score;
+  document.querySelector('.general-size').textContent = score;
   document.querySelector('.highscore').textContent = highScore;
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').textContent = '?см';
